@@ -1,0 +1,30 @@
+{
+  "name": "tenx-admin-portal",
+  "version": "1.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "dev": "vite --port 3000",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.5.3",
+    "axios": "^1.9.0",
+    "@microsoft/signalr": "^10.0.0",
+    "zustand": "^5.0.3",
+    "react-hot-toast": "^2.5.2",
+    "lucide-react": "^0.511.0",
+    "react-quill": "^2.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.6.0",
+    "vite": "^7.3.1",
+    "svgo": "^4.0.0"
+  }
+}

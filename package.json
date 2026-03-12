@@ -1,0 +1,14 @@
+{
+  "name": "tenxconvo-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently -n API,ADMIN,CONSULTANT,USER -c blue,green,magenta,cyan \"npm run dev:api\" \"npm run dev:admin\" \"npm run dev:consultant\" \"npm run dev:user\"",
+    "dev:api": "cd tenxconvo_v2/src/tenxconvo.api && dotnet run",
+    "dev:admin": "cd tenx-frontend/admin-portal && npm run dev",
+    "dev:consultant": "cd tenx-frontend/consultant-portal && npm run dev",
+    "dev:user": "cd tenx-frontend/user-portal && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}

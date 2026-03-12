@@ -1,0 +1,68 @@
+# ═══════════════════════════════════════════════════════════════════════════
+#  TenXConvo .gitignore
+# ═══════════════════════════════════════════════════════════════════════════
+
+# ── .NET Build Output ─────────────────────────────────────────────────────
+bin/
+obj/
+publish/
+out/
+
+# ── .NET User/IDE Files ───────────────────────────────────────────────────
+*.user
+*.suo
+*.userosscache
+*.sln.docstats
+.vs/
+*.csproj.user
+
+# ── Secrets — NEVER commit these ─────────────────────────────────────────
+appsettings.Production.json
+appsettings.Staging.json
+*.pfx
+*.key
+*.pem
+
+# ── Frontend — Node.js ───────────────────────────────────────────────────
+node_modules/
+dist/
+.env.local
+.env.production
+.env.staging
+.env*.local
+
+# ── Frontend — Build Artifacts ───────────────────────────────────────────
+package-lock.json
+
+# ── SQLite Dev Databases ─────────────────────────────────────────────────
+*.db
+*.db-shm
+*.db-wal
+
+# ── User Uploads (don't track uploaded content) ─────────────────────────
+wwwroot/uploads/avatars/*
+wwwroot/uploads/documents/*
+wwwroot/uploads/logos/*
+!wwwroot/uploads/avatars/.gitkeep
+!wwwroot/uploads/documents/.gitkeep
+!wwwroot/uploads/logos/.gitkeep
+
+# ── IDE ──────────────────────────────────────────────────────────────────
+.idea/
+.vscode/settings.json
+.vscode/launch.json
+*.swp
+*.swo
+*~
+
+# ── OS Files ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Logs ─────────────────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+
+.fake

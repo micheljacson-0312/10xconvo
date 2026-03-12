@@ -1,0 +1,44 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+        "label": "Run API",
+        "type": "shell",
+        "command": "cd tenxconvo_v2/src/tenxconvo.api && dotnet run",
+        "isBackground": true,
+        "problemMatcher": []
+    },
+    {
+        "label": "Run Admin Portal",
+        "type": "shell",
+        "command": "cd tenx-frontend/admin-portal && npm run dev",
+        "isBackground": true,
+        "problemMatcher": []
+    },
+    {
+        "label": "Run Consultant Portal",
+        "type": "shell",
+        "command": "cd tenx-frontend/consultant-portal && npm run dev",
+        "isBackground": true,
+        "problemMatcher": []
+    },
+    {
+        "label": "Run User Portal",
+        "type": "shell",
+        "command": "cd tenx-frontend/user-portal && npm run dev",
+        "isBackground": true,
+        "problemMatcher": []
+    },
+    {
+        "label": "Run All TenXConvo",
+        "dependsOn": [
+            "Run API",
+            "Run Admin Portal",
+            "Run Consultant Portal",
+            "Run User Portal"
+        ],
+        "dependsOrder": "parallel",
+        "problemMatcher": []
+    }
+]
+}
