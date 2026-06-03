@@ -24,7 +24,6 @@ let firebaseAuth = null
 async function getFirebase() {
   if (firebaseAuth) return firebaseAuth
 
-  // Dynamic import — Firebase modules loaded only when social login is clicked
   const { initializeApp }              = await import('https://www.gstatic.com/firebasejs/11.6.0/firebase-app.js')
   const { getAuth, signInWithPopup,
           GoogleAuthProvider,
