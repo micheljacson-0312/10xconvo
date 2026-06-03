@@ -831,7 +831,7 @@ public class PublicAvailabilityController : ControllerBase
     public PublicAvailabilityController(AppDbContext db) => _db = db;
 
     [HttpGet]
-    [AllowAnonymous]
+    [Authorize]
     public async Task<IActionResult> GetPublicSchedule(Guid consultantUserId)
     {
         var profile = await _db.ConsultantProfiles.FirstOrDefaultAsync(p => p.UserId == consultantUserId && p.IsPublic);
