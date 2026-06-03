@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
+import { useParams } from 'react-router-dom'
 import { Star, Pencil, Trash2, X, MessageSquare } from 'lucide-react'
 import { reviewApi } from '../api'
 
@@ -43,7 +44,8 @@ function StarDisplay({ rating, size=14 }) {
 }
 
 // ── Main Component — pass consultantUserId as prop or via URL param
-export default function ReviewsPage({ consultantUserId, consultantName }) {
+export function ReviewsPage() {
+  const { consultantId: consultantUserId } = useParams()
   const [reviews, setReviews]   = useState([])
   const [avg, setAvg]           = useState(0)
   const [total, setTotal]       = useState(0)

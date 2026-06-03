@@ -1,4 +1,7 @@
-import { ReviewsPage, ConsultantAvailabilityPage, UserNotificationsPage, ForgotPasswordPage } from './pages/PartBPages'
+import { ReviewsPage } from './pages/ReviewsPage'
+import ConsultantAvailabilityPage from './pages/ConsultantAvailabilityPage'
+import { NotificationsPage as UserNotificationsPage } from './pages/NotificationsPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
 import { ConsultantDirectPage } from './pages/ConsultantDirectPage'
 import BillingPage from './pages/BillingPage'
 import React, { useState, useEffect, useCallback, useRef } from 'react'
