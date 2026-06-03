@@ -9,9 +9,6 @@
 //  4. For Facebook: create app at https://developers.facebook.com, add to Firebase
 // ═══════════════════════════════════════════════════════════════════════════
 
-// Firebase SDK loaded from CDN via import maps (no npm install needed)
-// Add to index.html:  <script type="module"> ... </script>
-
 const firebaseConfig = {
   apiKey:            import.meta.env.VITE_FIREBASE_API_KEY            || 'YOUR_API_KEY',
   authDomain:        import.meta.env.VITE_FIREBASE_AUTH_DOMAIN        || 'YOUR_PROJECT.firebaseapp.com',
