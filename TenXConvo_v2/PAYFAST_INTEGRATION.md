@@ -4,8 +4,8 @@
 
 | Key | Value |
 |-----|-------|
-| **Merchant ID** | `26290` |
-| **Secured Key** | `-cVfb5YhoBJVjenfxfgNnod2` |
+| **Merchant ID** | `ENTER_YOUR_MERCHANT_ID_HERE` |
+| **Secured Key** | `ENTER_YOUR_SECURED_KEY_HERE` |
 | **Partner Code** | `MEN.HUB25` |
 
 ---
@@ -53,8 +53,8 @@ All callback URLs are **auto-generated** from `PortalUrls`. Set your domains in 
 PayFast only needs gateway keys (no callback URLs needed):
 ```json
 "PayFast": {
-    "MerchantId":   "26290",
-    "SecuredKey":    "-cVfb5YhoBJVjenfxfgNnod2",
+    "MerchantId":   "ENTER_YOUR_MERCHANT_ID_HERE",
+    "SecuredKey":    "ENTER_YOUR_SECURED_KEY_HERE",
     "StoreId":       "",
     "MerchantName":  "10X Convo",
     "BaseUrl":       "https://ipguat.apps.net.pk",
@@ -89,7 +89,7 @@ Frontend: POST /api/credits/purchase/payfast
     │    { textChars: 5000, audioMins: 10 }
     ▼
 Backend: POST https://ipguat.apps.net.pk/Ecommerce/api/Transaction/GetAccessToken
-    │    MERCHANT_ID=26290 & SECURED_KEY=... & TXNAMT=850.00 & BASKET_ID=TXN-xxx
+    │    MERCHANT_ID=ENTER_YOUR_MERCHANT_ID_HERE & SECURED_KEY=... & TXNAMT=850.00 & BASKET_ID=TXN-xxx
     │    → Returns: { ACCESS_TOKEN: "abc123..." }
     ▼
 Backend builds HTML auto-submit form → Returns to frontend
@@ -131,7 +131,7 @@ PayFast sends `validation_hash` in callback. We verify:
 
 ```
 Input:    basket_id + "|" + secured_key + "|" + merchant_id + "|" + err_code
-          TXN-20260307-A1B2C3D4 | -cVfb5YhoBJVjenfxfgNnod2 | 26290 | 000
+          TXN-20260307-A1B2C3D4 | ENTER_YOUR_SECURED_KEY_HERE | ENTER_YOUR_MERCHANT_ID_HERE | 000
 
 Hash:     SHA-256(input)
 
