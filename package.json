@@ -10,5 +10,9 @@
   },
   "devDependencies": {
     "concurrently": "^9.0.1"
+  },
+  "dependencies": {
+    "dompurify": "^3.4.8",
+    "jsdom": "^29.1.1"
   }
 }
