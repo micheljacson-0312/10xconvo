@@ -330,11 +330,9 @@ public class WebPushController : ControllerBase
         if (tokens.Count == 0)
             return Ok(new { success = false, message = "User has no active push tokens." });
 
-        int sent = 0;
-        foreach (var token in tokens)
-        {var (ok, _) = await SendWebPushAsync(token.Token, req.Title, req.Body, req.Url);
-            if (ok) sent++;
-        }
+        var tasks = tokens.Select(token => SendWebPushAsync(token.Token, req.Title, req.Body, req.Url));
+        var results = await Task.WhenAll(tasks);
+        int sent = results.Count(r => r.ok);
 
         return Ok(new {success = true,data = new { sent, total = tokens.Count }});
     }
