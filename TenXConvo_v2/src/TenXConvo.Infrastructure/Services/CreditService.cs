@@ -35,7 +35,7 @@ public class CreditService
     }
 
     // ── GET REMAINING CREDITS (for frontend display) ─────────────────────────
-    public async Task<CreditInfo> GetCreditsAsync(Guid userId)
+    public virtual async Task<CreditInfo> GetCreditsAsync(Guid userId)
     {
         var bal = await GetOrCreateBalanceAsync(userId);
         return new CreditInfo(
