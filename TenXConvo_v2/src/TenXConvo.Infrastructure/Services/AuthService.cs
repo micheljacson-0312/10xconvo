@@ -22,13 +22,6 @@ public class AuthService : IAuthService
     // ── STEP 1: email → locations + connections + fiscal years ───────────────
     public async Task<LoginStep1Result> LoginStep1Async(string email)
     {
-        var user = await _db.Users
-            .Include(u => u.Role)
-            .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower() && u.IsActive);
-
-        if (user == null)
-            throw new UnauthorizedAccessException("Email not found.");
-
         var locations = await _db.Locations
             .Include(l => l.LocationType)
             .Where(l => l.IsActive)
@@ -42,10 +35,13 @@ public class AuthService : IAuthService
             .Select(f => new FiscalYearItem(f.Id, f.Name, f.IsCurrent))
             .ToListAsync();
 
+        var emailParts = email.Split('@');
+        var defaultUserName = emailParts.Length > 0 ? emailParts[0] : email;
+
         return new LoginStep1Result(
             Found:       true,
-            UserName:    user.UserName,
-            LoginId:     user.LoginId,
+            UserName:    defaultUserName,
+            LoginId:     email,
             Locations:   locations,
             Connections: new List<string> { "QA", "Production" },
             FiscalYears: fiscalYears
@@ -57,10 +53,20 @@ public class AuthService : IAuthService
     {
         var user = await _db.Users
             .Include(u => u.Role)
-            .FirstOrDefaultAsync(u => u.Email.ToLower() == input.Email.ToLower() && u.IsActive)
-            ?? throw new UnauthorizedAccessException("Invalid credentials.");
+            .FirstOrDefaultAsync(u => u.Email.ToLower() == input.Email.ToLower() && u.IsActive);
 
-        if (!BCrypt.Net.BCrypt.Verify(input.Password, user.PasswordHash))
+        bool isValidPassword = false;
+        if (user != null)
+        {
+            isValidPassword = BCrypt.Net.BCrypt.Verify(input.Password, user.PasswordHash);
+        }
+        else
+        {
+            // Dummy hash verify to mitigate timing attacks
+            BCrypt.Net.BCrypt.Verify(input.Password, "$2a$11$0oYQQWFJqWl7qXazxwgc7OWNo5qWqkpKg0WZ2WQeaPWqjlr/.u9fm");
+        }
+
+        if (user == null || !isValidPassword)
             throw new UnauthorizedAccessException("Invalid credentials.");
 
         var location   = await _db.Locations.Include(l => l.LocationType).FirstOrDefaultAsync(l => l.Id == input.LocationId)
