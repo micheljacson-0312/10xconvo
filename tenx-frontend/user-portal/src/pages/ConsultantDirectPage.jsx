@@ -17,7 +17,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { toast } from 'react-hot-toast'
-import { Loader, Star, Clock, MapPin, ChevronRight, MessageSquare } from 'lucide-react'
+import { Loader, Clock, MapPin, ChevronRight, MessageSquare } from 'lucide-react'
 import { userApi, authApi } from '../api'
 import { useAuthStore } from '../api'
 
