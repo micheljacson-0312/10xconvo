@@ -4,7 +4,7 @@ import { Toaster } from 'react-hot-toast'
 import { useAuthStore } from './store/authStore'
 import ConsultantLayout from './components/ConsultantLayout'
 import { AllPages } from './pages/AllPages'
-import { AvailabilityPage, ConsultantNotificationsPage } from './pages/PartBPages'
+import { AvailabilityPage } from './pages/PartBPages'
 import { NotificationsPage } from './pages/NotificationsPage'
 
 const { LoginPage, DashboardPage, ProfilePage, ClientsPage, RequestsPage, MessagingPage } = AllPages || {}
