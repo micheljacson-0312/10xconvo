@@ -222,8 +222,8 @@ stripe listen --forward-to localhost:5000/credits/callback/stripe
 **Config:**
 ```json
 "PayFast": {
-  "MerchantId":   "26290",
-  "SecuredKey":    "-cVfb5YhoBJVjenfxfgNnod2",
+  "MerchantId":   "ENTER_YOUR_MERCHANT_ID_HERE",
+  "SecuredKey":    "ENTER_YOUR_SECURED_KEY_HERE",
   "StoreId":       "",
   "MerchantName":  "10X Convo",
   "BaseUrl":       "https://ipguat.apps.net.pk",
