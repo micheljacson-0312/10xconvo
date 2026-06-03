@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { Send, MessageSquare, Mail, Bell, Smartphone, Radio, Clock, CheckCircle, XCircle, RefreshCw } from 'lucide-react'
-import { notifyApi, userApi } from '../api'
+import { notifyApi } from '../api'
 
 const TABS = [
   { key:'wa',      label:'WhatsApp', icon: MessageSquare, color:'#25d366' },
