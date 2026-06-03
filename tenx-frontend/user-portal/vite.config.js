@@ -20,5 +20,9 @@ export default defineConfig({
   build: {
     target: 'es2022',       // Modern browsers — aligned with Vite 7 baseline
     sourcemap: false,
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
   }
 })
