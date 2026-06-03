@@ -298,12 +298,21 @@ public class UserPermissionController : ControllerBase
         var user = await _db.Users.FindAsync(userId);
         if (user == null) return NotFound(new { success = false, message = "User not found." });
 
+        var menuKeys = requests.Select(r => r.MenuKey).ToList();
+
+        var existingPermissions = await _db.UserPermissions
+            .Where(p => p.UserId == userId && menuKeys.Contains(p.MenuKey))
+            .ToListAsync();
+
+        var existingDict = existingPermissions
+            .GroupBy(p => new { p.MenuKey, p.LocationId })
+            .ToDictionary(g => g.Key, g => g.First());
+
         foreach (var req in requests)
         {
-            var existing = await _db.UserPermissions
-                .FirstOrDefaultAsync(p => p.UserId == userId && p.MenuKey == req.MenuKey
-                                       && p.LocationId == req.LocationId);
-            if (existing != null)
+            var key = new { req.MenuKey, req.LocationId };
+
+            if (existingDict.TryGetValue(key, out var existing))
             {
                 existing.CanView   = req.CanView;
                 existing.CanCreate = req.CanCreate;
