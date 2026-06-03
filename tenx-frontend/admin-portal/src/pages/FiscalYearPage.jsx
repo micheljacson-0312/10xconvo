@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
-import { Plus, Pencil, Trash2, X, CalendarDays, CheckCircle, Circle, ToggleLeft, ToggleRight } from 'lucide-react'
+import { Plus, Pencil, Trash2, X, CalendarDays, CheckCircle, ToggleLeft, ToggleRight } from 'lucide-react'
 import { fiscalYearApi } from '../api'
 
 function Modal({ open, title, onClose, children, footer }) {
