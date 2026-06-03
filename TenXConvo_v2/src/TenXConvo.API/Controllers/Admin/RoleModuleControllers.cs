@@ -92,11 +92,19 @@ public class RoleModuleController : ControllerBase
         var role = await _db.Roles.FindAsync(roleId);
         if (role == null) return NotFound(new { success = false, message = "Role not found." });
 
+        var moduleKeys = requests.Select(r => r.ModuleKey).Distinct().ToList();
+        var locationIds = requests.Select(r => r.LocationId).Distinct().ToList();
+
+        var existingModules = await _db.RoleModules
+            .Where(m => m.RoleId == roleId
+                     && moduleKeys.Contains(m.ModuleKey)
+                     && locationIds.Contains(m.LocationId))
+            .ToListAsync();
+
         foreach (var req in requests)
         {
-            var existing = await _db.RoleModules
-                .FirstOrDefaultAsync(m => m.RoleId == roleId && m.ModuleKey == req.ModuleKey
-                                       && m.LocationId == req.LocationId);
+            var existing = existingModules.FirstOrDefault(m => m.ModuleKey == req.ModuleKey && m.LocationId == req.LocationId);
+
             if (existing != null)
             {
                 existing.CanView = req.CanView; existing.CanCreate = req.CanCreate;
@@ -105,13 +113,15 @@ public class RoleModuleController : ControllerBase
             }
             else
             {
-                _db.RoleModules.Add(new RoleModule
+                var newModule = new RoleModule
                 {
                     Id = Guid.NewGuid(), RoleId = roleId, LocationId = req.LocationId,
                     ModuleKey = req.ModuleKey, ModuleName = req.ModuleName,
                     CanView = req.CanView, CanCreate = req.CanCreate, CanEdit = req.CanEdit,
                     CanDelete = req.CanDelete, CanExport = req.CanExport,
-                });
+                };
+                _db.RoleModules.Add(newModule);
+                existingModules.Add(newModule); // In case of duplicate requests
             }
         }
 
