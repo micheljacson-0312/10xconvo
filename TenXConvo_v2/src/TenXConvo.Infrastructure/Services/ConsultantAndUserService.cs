@@ -183,15 +183,21 @@ public class ConsultantService : IConsultantService
         var total = await q.CountAsync();
         var items = await q.OrderByDescending(c => c.LastMessageAt ?? c.CreatedAt)
             .Skip((page - 1) * pageSize).Take(pageSize)
+            .Select(conv => new
+            {
+                ConvId = conv.Id,
+                CustomerUserId = conv.Customer.UserId,
+                CustomerUserName = conv.Customer.User.UserName,
+                CustomerAvatarUrl = conv.Customer.AvatarUrl,
+                LastMsgBody = _db.Messages.Where(m => m.ConversationId == conv.Id && m.DeletedAt == null).OrderByDescending(m => m.SentAt).Select(m => m.Body).FirstOrDefault(),
+                LastMsgSentAt = _db.Messages.Where(m => m.ConversationId == conv.Id && m.DeletedAt == null).OrderByDescending(m => m.SentAt).Select(m => (DateTime?)m.SentAt).FirstOrDefault(),
+                Unread = _db.Messages.Count(m => m.ConversationId == conv.Id && !m.IsRead && m.SenderId != consultantUserId && m.DeletedAt == null)
+            })
             .ToListAsync();
 
-        var results = new List<ConversationResult>();
-        foreach (var conv in items)
-        {
-            var lastMsg   = await _db.Messages.Where(m => m.ConversationId == conv.Id && m.DeletedAt == null).OrderByDescending(m => m.SentAt).FirstOrDefaultAsync();
-            var unread    = await _db.Messages.CountAsync(m => m.ConversationId == conv.Id && !m.IsRead && m.SenderId != consultantUserId && m.DeletedAt == null);
-            results.Add(new ConversationResult(conv.Id, conv.Customer.UserId, conv.Customer.User.UserName, conv.Customer.AvatarUrl, lastMsg?.Body, lastMsg?.SentAt, unread));
-        }
+        var results = items.Select(x => new ConversationResult(
+            x.ConvId, x.CustomerUserId, x.CustomerUserName, x.CustomerAvatarUrl, x.LastMsgBody, x.LastMsgSentAt, x.Unread)).ToList();
+
         return new PagedResult<ConversationResult>(results, total, page, pageSize);
     }
 
@@ -367,15 +373,21 @@ public class UserService : IUserService
         var total = await q.CountAsync();
         var items = await q.OrderByDescending(c => c.LastMessageAt ?? c.CreatedAt)
             .Skip((page - 1) * pageSize).Take(pageSize)
+            .Select(conv => new
+            {
+                ConvId = conv.Id,
+                ConsultantUserId = conv.Consultant.UserId,
+                ConsultantUserName = conv.Consultant.User.UserName,
+                ConsultantAvatarUrl = conv.Consultant.AvatarUrl,
+                LastMsgBody = _db.Messages.Where(m => m.ConversationId == conv.Id && m.DeletedAt == null).OrderByDescending(m => m.SentAt).Select(m => m.Body).FirstOrDefault(),
+                LastMsgSentAt = _db.Messages.Where(m => m.ConversationId == conv.Id && m.DeletedAt == null).OrderByDescending(m => m.SentAt).Select(m => (DateTime?)m.SentAt).FirstOrDefault(),
+                Unread = _db.Messages.Count(m => m.ConversationId == conv.Id && !m.IsRead && m.SenderId != customerUserId && m.DeletedAt == null)
+            })
             .ToListAsync();
 
-        var results = new List<ConversationResult>();
-        foreach (var conv in items)
-        {
-            var lastMsg = await _db.Messages.Where(m => m.ConversationId == conv.Id && m.DeletedAt == null).OrderByDescending(m => m.SentAt).FirstOrDefaultAsync();
-            var unread  = await _db.Messages.CountAsync(m => m.ConversationId == conv.Id && !m.IsRead && m.SenderId != customerUserId && m.DeletedAt == null);
-            results.Add(new ConversationResult(conv.Id, conv.Consultant.UserId, conv.Consultant.User.UserName, conv.Consultant.AvatarUrl, lastMsg?.Body, lastMsg?.SentAt, unread));
-        }
+        var results = items.Select(x => new ConversationResult(
+            x.ConvId, x.ConsultantUserId, x.ConsultantUserName, x.ConsultantAvatarUrl, x.LastMsgBody, x.LastMsgSentAt, x.Unread)).ToList();
+
         return new PagedResult<ConversationResult>(results, total, page, pageSize);
     }
 
