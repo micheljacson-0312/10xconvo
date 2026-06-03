@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
-import { Send, MessageSquare, Mail, Bell, Smartphone, Radio, Clock, CheckCircle, XCircle, RefreshCw } from 'lucide-react'
+import { Send, MessageSquare, Mail, Bell, Smartphone, Radio, Clock, RefreshCw } from 'lucide-react'
 import { notifyApi, userApi } from '../api'
 
 const TABS = [
