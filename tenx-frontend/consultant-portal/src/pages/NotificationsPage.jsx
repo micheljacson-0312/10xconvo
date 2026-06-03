@@ -1,7 +1,7 @@
 // ── CONSULTANT NOTIFICATIONS PAGE ────────────────────────────────────────────
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
-import { Bell, Check, CheckCheck, Clock, Trash2 } from 'lucide-react'
+import { Bell, Check, CheckCheck, Clock } from 'lucide-react'
 import { notifApi } from '../api'
 
 function timeAgo(d) {
