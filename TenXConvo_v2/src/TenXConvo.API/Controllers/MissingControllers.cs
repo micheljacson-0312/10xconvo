@@ -873,7 +873,7 @@ public class ConsultantReviewController : ControllerBase
     private Guid? MyUserId => User.FindFirst("sub") == null ? null : Guid.Parse(User.FindFirst("sub")!.Value);
 
     [HttpGet]
-    [AllowAnonymous]
+    [Authorize]
     public async Task<IActionResult> GetReviews(Guid consultantUserId,
         [FromQuery] int page = 1, [FromQuery] int pageSize = 10)
     {
