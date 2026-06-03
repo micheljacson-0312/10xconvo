@@ -7,6 +7,7 @@ import { toast } from 'react-hot-toast'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Star, Bell, CheckCheck, Clock, Mail, KeyRound, Eye, EyeOff, ArrowLeft } from 'lucide-react'
 import axios from 'axios'
+import DOMPurify from 'dompurify'
 
 const BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 const api  = axios.create({ baseURL: BASE })
@@ -332,7 +333,7 @@ export function UserNotificationsPage() {
                     <span style={{ fontSize: 11, color: 'var(--muted)', whiteSpace: 'nowrap', marginLeft: 8 }}>{new Date(n.createdOn).toLocaleDateString()}</span>
                   </div>
                   <p style={{ fontSize: 13, color: 'var(--muted)', margin: '4px 0 0', lineHeight: 1.5 }}>{n.body}</p>
-                  {n.url && <a href={n.url} style={{ fontSize: 12, color: 'var(--accent)', marginTop: 4, display: 'inline-block' }}>View →</a>}
+                  {n.url && DOMPurify.isValidAttribute('a', 'href', n.url) && <a href={n.url} style={{ fontSize: 12, color: 'var(--accent)', marginTop: 4, display: 'inline-block' }}>View →</a>}
                 </div>
                 {!n.isRead && <div style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--accent)', marginTop: 6, flexShrink: 0 }} />}
               </div>

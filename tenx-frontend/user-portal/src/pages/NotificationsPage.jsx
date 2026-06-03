@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
 import { Bell, Check, CheckCheck, Clock } from 'lucide-react'
+import DOMPurify from 'dompurify'
 import { notifApi } from '../api'
 
 function timeAgo(d) {
@@ -78,7 +79,7 @@ export function NotificationsPage() {
               <div style={{flex:1}}>
                 <div style={{fontWeight:600,fontSize:14}}>{n.title}</div>
                 <div style={{color:'var(--muted)',fontSize:13,marginTop:3}}>{n.body}</div>
-                {n.url && <a href={n.url} style={{color:'var(--accent)',fontSize:12,marginTop:4,display:'block'}}>View →</a>}
+                {n.url && DOMPurify.isValidAttribute('a', 'href', n.url) && <a href={n.url} style={{color:'var(--accent)',fontSize:12,marginTop:4,display:'block'}}>View →</a>}
                 <div style={{color:'var(--muted)',fontSize:11,marginTop:6,display:'flex',alignItems:'center',gap:4}}>
                   <Clock size={10}/> {timeAgo(n.createdOn)}
                 </div>
