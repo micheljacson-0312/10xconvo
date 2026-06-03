@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      run: docker build TenXConvo_v2 --file TenXConvo_v2/Dockerfile --tag my-image-name:$(date +%s)
