@@ -4,7 +4,7 @@
 // ═══════════════════════════════════════════════════════════════════════════
 import React, { useState, useEffect, useCallback } from 'react'
 import { toast } from 'react-hot-toast'
-import { Plus, Trash2, Save, Bell, Check, CheckCheck, Clock } from 'lucide-react'
+import { Plus, Trash2, Save, Bell, CheckCheck, Clock } from 'lucide-react'
 import { api } from '../api'
 
 // ── API helpers ───────────────────────────────────────────────────────────────
