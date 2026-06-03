@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { toast } from 'react-hot-toast'
-import { Shield, Menu, Save, X, ChevronDown, ChevronRight, Check, Minus } from 'lucide-react'
+import { Shield, Menu, Save, X, ChevronRight, Check, Minus } from 'lucide-react'
 import { roleApi, roleModuleApi } from '../api'
 
 const PERM_COLS = ['canView','canCreate','canEdit','canDelete','canExport']
