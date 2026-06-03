@@ -1,8 +1,5 @@
 // ── 10X Convo Service Worker ────────────────────────────────────────────────
 // Place this file at: /public/sw.js in each frontend portal
-// Register in main.jsx:
-//   navigator.serviceWorker.register('/sw.js')
-//     .then(reg => subscribeToPush(reg))
 
 self.addEventListener('install',  () => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(clients.claim()));
