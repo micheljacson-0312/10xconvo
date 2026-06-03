@@ -48,7 +48,6 @@ export async function registerPushNotifications(loginId) {
       }),
     });
 
-    console.log('✅ Push notifications registered');
     return true;
   } catch (err) {
     console.error('Push registration failed:', err);
