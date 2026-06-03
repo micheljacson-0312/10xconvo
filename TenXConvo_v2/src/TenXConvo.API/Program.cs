@@ -286,7 +286,7 @@ var app = builder.Build();
 
         // BCrypt hashes always start with "$2a$" or "$2b$". The dummy hash
         // we seeded starts with "$2a$11$rBnz..." — re-hash on first real run.
-        bool needsRehash = !BCrypt.Net.BCrypt.Verify(seedPasswords[email], user.PasswordHash);
+        bool needsRehash = user.PasswordHash == "$2a$11$rBnzgDSuFJDgBXJzxl4aVOzQqRaW6YhXJvDPFi9GVQ0g7TlFp2vJq";
         if (needsRehash)
         {
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(seedPasswords[email], workFactor: 11);
